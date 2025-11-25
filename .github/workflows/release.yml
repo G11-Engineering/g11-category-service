@@ -33,7 +33,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: jasonmishi/category-service
+          images: jasonmishi/g11-category-service
 
       - name: Build and push Docker image
         id: push
