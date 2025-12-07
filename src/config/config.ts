@@ -122,7 +122,7 @@ export const config = {
 
   // File paths configuration
   paths: {
-    schemaPath: process.env.SCHEMA_PATH || process.env.DATABASE_SCHEMA_PATH || '../../database/schemas/category-service.sql',
+    schemaPath: process.env.SCHEMA_PATH || process.env.DATABASE_SCHEMA_PATH || '../../../../database/schemas/category-service.sql',
     migrationsPath: process.env.MIGRATIONS_PATH || '../../../../database/migrations',
   },
 
