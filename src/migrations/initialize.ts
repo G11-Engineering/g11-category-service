@@ -8,6 +8,9 @@ export const initializeDatabase = async (): Promise<void> => {
     const db = getDatabase();
     
     // Read and execute the schema
+<<<<<<< HEAD
+    const schemaPath = path.join(__dirname, '../../database/schemas/category-service.sql');
+=======
     // Support both absolute and relative paths
     let schemaPath: string;
     if (path.isAbsolute(config.paths.schemaPath)) {
@@ -23,6 +26,7 @@ export const initializeDatabase = async (): Promise<void> => {
       return;
     }
     
+>>>>>>> b8fec41 (loclahost rmeoved in code base)
     const schema = fs.readFileSync(schemaPath, 'utf8');
     
     try {
