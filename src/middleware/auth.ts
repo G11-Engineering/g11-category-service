@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import axios from 'axios';
 import { createError } from './errorHandler';
-import { config } from '../config/config';
 
 export interface AuthRequest extends Request {
   user?: {
@@ -27,7 +26,7 @@ export const authenticateToken = async (
 
     // Verify token with user service
     try {
-      const response = await axios.get(`${config.services.userServiceUrl}/api/users/profile`, {
+      const response = await axios.get(`${process.env.USER_SERVICE_URL}/api/users/profile`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

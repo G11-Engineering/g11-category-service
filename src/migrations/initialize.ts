@@ -1,5 +1,4 @@
 import { getDatabase } from '../config/database';
-import { config } from '../config/config';
 import fs from 'fs';
 import path from 'path';
 
@@ -8,25 +7,7 @@ export const initializeDatabase = async (): Promise<void> => {
     const db = getDatabase();
     
     // Read and execute the schema
-<<<<<<< HEAD
     const schemaPath = path.join(__dirname, '../../database/schemas/category-service.sql');
-=======
-    // Support both absolute and relative paths
-    let schemaPath: string;
-    if (path.isAbsolute(config.paths.schemaPath)) {
-      schemaPath = config.paths.schemaPath;
-    } else {
-      // Relative path from this file's location
-      schemaPath = path.join(__dirname, config.paths.schemaPath);
-    }
-    
-    // Check if file exists
-    if (!fs.existsSync(schemaPath)) {
-      console.warn(`Schema file not found at ${schemaPath}, skipping schema initialization`);
-      return;
-    }
-    
->>>>>>> b8fec41 (loclahost rmeoved in code base)
     const schema = fs.readFileSync(schemaPath, 'utf8');
     
     try {

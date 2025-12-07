@@ -1,34 +1,19 @@
-import { Pool, PoolConfig } from 'pg';
-import { config } from './config';
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 let pool: Pool;
 
 export const connectDatabase = async (): Promise<void> => {
   try {
-    const poolConfig: PoolConfig = {
-      max: config.database.pool.max,
-      idleTimeoutMillis: config.database.pool.idleTimeoutMillis,
-      connectionTimeoutMillis: config.database.pool.connectionTimeoutMillis,
-    };
-
-    // Use DATABASE_URL if available, otherwise use individual components
-    if (config.database.url && config.database.url.trim() !== '') {
-      poolConfig.connectionString = config.database.url;
-    } else {
-      // Build connection from individual components
-      poolConfig.host = config.database.host;
-      poolConfig.port = config.database.port;
-      poolConfig.user = config.database.user;
-      poolConfig.password = config.database.password;
-      poolConfig.database = config.database.name;
-    }
-
-    // SSL configuration
-    if (config.database.ssl) {
-      poolConfig.ssl = config.database.ssl;
-    }
-
-    pool = new Pool(poolConfig);
+    pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+      max: 20,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 2000,
+    });
 
     // Test the connection
     const client = await pool.connect();

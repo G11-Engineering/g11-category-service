@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from 'express';
 import slugify from 'slugify';
 import { getDatabase } from '../config/database';
 import { createError } from '../middleware/errorHandler';
-import { config } from '../config/config';
 
 export const getTags = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -189,7 +188,7 @@ export const deleteTag = async (req: Request, res: Response, next: NextFunction)
 
 export const getPopularTags = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { limit = config.defaults.popularTagsLimit } = req.query;
+    const { limit = 20 } = req.query;
     const db = getDatabase();
 
     const result = await db.query(`
